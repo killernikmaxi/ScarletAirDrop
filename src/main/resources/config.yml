@@ -16,6 +16,12 @@
 # » %airdrop% - Numero di airdrop spawnati
 #
 
+#
+# ALTRO
+# » Papi
+#   - %scarletairdrop_countdown% countdown formattato
+#
+
 Settings:
 
   AirDrop:
