@@ -1,0 +1,98 @@
+
+#
+#                           ScarletAirDrop
+#
+#   Ti trovi nella configurazione main del plugin ScarletAirDrop (config.yml).
+#                    Plugin creato da MRkillernik
+#
+
+# PERMESSI:
+# /ad [args] - "ad.admin"
+
+#
+# MESSAGE PLACEHOLDERS:
+#
+# » %cooldown% - Tempo richiesto (formattato)
+# » %airdrop% - Numero di airdrop spawnati
+#
+
+Settings:
+
+  AirDrop:
+
+    # Cooldown in secondi
+    cooldown: 10800
+
+    # Despawn degli airdrop in secondi
+    expire: 600
+
+    # Imposta il value dinamico di airdrop
+    # Che spawnano in base a x player
+    dynamic-airdrop-amount:
+
+      # Vale se ci sono 7 o piu' giocatori
+      # Invalido se il numero sottostante e' maggiore
+      7:
+        min-airdrop: 5
+        max-airdrop: 10
+
+      # Vale se ci sono 15 o piu' giocatori
+      # Invalido se il numero sottostante e' maggiore
+      15:
+        min-airdrop: 10
+        max-airdrop: 25
+
+      # Vale se ci sono 35 o piu' giocatori
+      # Invalido se il numero sottostante e' maggiore
+      35:
+        min-airdrop: 30
+        max-airdrop: 50
+
+      # Vale se ci sono 50 o piu' giocatori
+      50:
+        min-airdrop: 50
+        max-airdrop: 80
+
+    max-on>50: 100
+    min-on>50: 90
+
+  Loots:
+
+    # Numero minimo di item
+    min-item: 3
+
+    # Numero massimo di item
+    max-item: 5
+
+
+  # Imposta i secondi mancanti in cui
+  # Vuoi che venga inviato un broadcast
+  # Il messaggio verra' automaticamente formattato
+  cooldown-message:
+    - 1800
+    - 300
+    - 60
+    - 30
+    - 10
+    - 5
+    - 4
+    - 3
+    - 2
+    - 1
+
+  Holo:
+    - "&4&lAIRDROP"
+    - "&cCliccami per aprire"
+
+Message:
+  starting: "&4&lAIRDROP &8// &7Tra &c%cooldown% &7si terra' l'evento AirDrop!"
+  started: "&4&lAIRDROP &8// &a&lEvento Iniziato! Airdrop spawnati %airdrop%"
+  too-low-players: "&4&lAIRDROP &8// &cL'evento si e' fermato perche' ci sono troppi pochi giocatori!"
+
+# Imposta con /ad additem
+# Oppure rimuovi manualmente mediante il config
+Loots:
+
+# Impostale con /ad addlocation
+# Oppure rimuovile manualmente mediante il config
+Locations:

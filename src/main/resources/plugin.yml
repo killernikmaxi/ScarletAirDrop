@@ -1,3 +1,10 @@
 name: ScarletAirDrop
 version: '${version}'
 main: it.killernik.scarletairdrop.ScarletAirDrop
+softdepend: [PlaceholderAPI]
+commands:
+  AirDrop:
+    description: Main Commnad
+    usage: /airdrop
+    aliases:
+      - ad
