@@ -40,7 +40,7 @@ public class AirDropSpawnTask {
                         return;
                     }
 
-                    if (!ScarletAirDrop.INSTANCE.airDropManager.eventRunning) {
+                    if (ScarletAirDrop.INSTANCE.airDropManager.eventRunning) {
                         Workload despawnAirdropWorkload = new DespawnAirdropWorkload();
                         despawnAirdropWorkload.compute();
                     }
