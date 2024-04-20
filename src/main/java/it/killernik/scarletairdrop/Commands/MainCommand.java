@@ -90,6 +90,7 @@ public class MainCommand implements CommandExecutor {
 
                     Player p = (Player) commandSender;
                     Location loc = p.getLocation();
+                    loc = loc.getBlock().getLocation().add(0.5, 0, 0.5);
 
                     List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
                     locations.add(locationToString(loc));
@@ -115,7 +116,7 @@ public class MainCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("reload")) {
                     ScarletAirDrop.INSTANCE.reloadConfig();
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
+                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
                     return true;
             }
 
