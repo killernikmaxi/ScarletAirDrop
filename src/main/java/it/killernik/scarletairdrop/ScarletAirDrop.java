@@ -3,6 +3,7 @@ package it.killernik.scarletairdrop;
 import it.killernik.scarletairdrop.Commands.MainCommand;
 import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.Tasks.AirDropSpawnTask;
+import it.killernik.scarletairdrop.WorkLoad.WorkloadThread;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Chest;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,8 @@ public final class ScarletAirDrop extends JavaPlugin {
         registerCommands();
         registerListeners();
         airDropSpawnTask.StartTask();
+        WorkloadThread workloadThread = new WorkloadThread();
+        Bukkit.getScheduler().runTaskTimer(this, workloadThread, 0, 1);
         Bukkit.getLogger().info("[ScarletAirDrop] abilitato con successo in " + (System.currentTimeMillis() - startTime) + "ms!");
 
     }
