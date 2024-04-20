@@ -107,16 +107,22 @@ public class MainCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("spawnairdrop")) {
                 if (commandSender instanceof Player) {
-                    ScarletAirDrop.INSTANCE.airDropManager.spawnAirDrop(((Player) commandSender).getLocation());
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aAirdrop spawnato!"));
+                    Player p = (Player) commandSender;
+                    Location loc = p.getLocation();
+                    loc = loc.getBlock().getLocation().add(0.5, 0, 0.5);
+                    ScarletAirDrop.INSTANCE.airDropManager.spawnAirDrop(loc);
+                    p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aAirdrop spawnato!"));
+                    return true;
                 }
-            } else {
-                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
             }
 
             if (args[0].equalsIgnoreCase("reload")) {
                 ScarletAirDrop.INSTANCE.reloadConfig();
                 commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
+                return true;
+
+            } else {
+                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
                 return true;
             }
 
@@ -125,16 +131,16 @@ public class MainCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("setcountdown")) {
                 ScarletAirDrop.INSTANCE.airDropSpawnTask.setTime(Integer.parseInt(args[1]));
                 commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aCountdown impostato con successo a " + args[1]));
+                return true;
             } else {
                 commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
+                return true;
             }
 
         } else {
             commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
             return true;
         }
-
-        return true;
     }
 
 }

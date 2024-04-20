@@ -19,6 +19,7 @@ public class AirDropManager {
     public static List<Chest> chestList = new ArrayList<>();
     public List<Location> locList = new ArrayList<>();
     public HashMap<Chest, HologramsUtils> holoMap = new HashMap<>();
+    public boolean eventRunning = false;
 
     public void startEvent() {
         Workload spawnAirdropWorkload = new SpawnAirdropWorkload();

@@ -2,6 +2,8 @@ package it.killernik.scarletairdrop.Tasks;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
 import it.killernik.scarletairdrop.Utils.MessageUtil;
+import it.killernik.scarletairdrop.WorkLoad.Workload;
+import it.killernik.scarletairdrop.WorkLoad.impl.DespawnAirdropWorkload;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -37,6 +39,12 @@ public class AirDropSpawnTask {
                         secondsUntilEvent = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.cooldown");
                         return;
                     }
+
+                    if (!ScarletAirDrop.INSTANCE.airDropManager.eventRunning) {
+                        Workload despawnAirdropWorkload = new DespawnAirdropWorkload();
+                        despawnAirdropWorkload.compute();
+                    }
+
                     secondsUntilEvent = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.cooldown");
                     ScarletAirDrop.INSTANCE.airDropManager.startEvent();
                 }
