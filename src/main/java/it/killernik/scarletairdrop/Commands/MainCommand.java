@@ -115,9 +115,9 @@ public class MainCommand implements CommandExecutor {
             }
 
             if (args[0].equalsIgnoreCase("reload")) {
-                    ScarletAirDrop.INSTANCE.reloadConfig();
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
-                    return true;
+                ScarletAirDrop.INSTANCE.reloadConfig();
+                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
+                return true;
             }
 
         } else if (args.length == 2) {

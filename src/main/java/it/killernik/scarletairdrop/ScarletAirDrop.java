@@ -5,10 +5,7 @@ import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.Tasks.AirDropSpawnTask;
 import it.killernik.scarletairdrop.WorkLoad.WorkloadThread;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Chest;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import static it.killernik.scarletairdrop.Manager.AirDropManager.chestList;
 
 public final class ScarletAirDrop extends JavaPlugin {
 
