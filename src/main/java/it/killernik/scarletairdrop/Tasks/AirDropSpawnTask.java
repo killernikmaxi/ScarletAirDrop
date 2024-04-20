@@ -32,7 +32,7 @@ public class AirDropSpawnTask {
                 }
 
                 if (secondsUntilEvent <= 0) {
-                    if (Bukkit.getOnlinePlayers().size() < 1) {
+                    if (!ScarletAirDrop.INSTANCE.getConfig().getBoolean("Settings.BETA") && Bukkit.getOnlinePlayers().size() < 7) {
                         Bukkit.broadcastMessage(MessageUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.too-low-players")));
                         secondsUntilEvent = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.cooldown");
                         return;

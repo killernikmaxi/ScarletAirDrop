@@ -24,6 +24,9 @@
 
 Settings:
 
+  # Inizia l'evento anche se non ci sono on
+  BETA: true
+
   AirDrop:
 
     # Cooldown in secondi
