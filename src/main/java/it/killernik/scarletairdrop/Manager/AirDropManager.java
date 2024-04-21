@@ -1,8 +1,8 @@
 package it.killernik.scarletairdrop.Manager;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
-import it.killernik.scarletairdrop.Utils.BukkitSerialization;
 import it.killernik.scarletairdrop.Utils.HologramsUtils;
+import it.killernik.scarletairdrop.Utils.ItemStackUtils;
 import it.killernik.scarletairdrop.WorkLoad.Workload;
 import it.killernik.scarletairdrop.WorkLoad.impl.SpawnAirdropWorkload;
 import org.bukkit.Bukkit;
@@ -64,7 +64,7 @@ public class AirDropManager {
             int slotRange = 27;
             int slot = (int) (Math.random() * slotRange);
 
-            chest.getInventory().setItem(slot, BukkitSerialization.itemStackFromBase64(item));
+            chest.getInventory().setItem(slot, ItemStackUtils.deserialize(item));
             lootSpawned++;
             if (lootSpawned == lootAmount) break;
         }

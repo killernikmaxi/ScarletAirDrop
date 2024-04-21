@@ -9,6 +9,8 @@ import it.killernik.scarletairdrop.WorkLoad.impl.DespawnAirdropWorkload;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.charset.StandardCharsets;
+
 public final class ScarletAirDrop extends JavaPlugin {
     public static ScarletAirDrop INSTANCE;
     public AirDropSpawnTask airDropSpawnTask;

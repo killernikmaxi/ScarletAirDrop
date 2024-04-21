@@ -1,7 +1,7 @@
 package it.killernik.scarletairdrop.Commands;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
-import it.killernik.scarletairdrop.Utils.BukkitSerialization;
+import it.killernik.scarletairdrop.Utils.ItemStackUtils;
 import it.killernik.scarletairdrop.Utils.MessageUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -54,9 +54,9 @@ public class MainCommand implements CommandExecutor {
                     if (item.getType() == Material.AIR || item.getType() == null) return true;
 
                     List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
-                    items.add(BukkitSerialization.itemStackToBase64(item));
+                    items.add(ItemStackUtils.serialize(item));
                     ScarletAirDrop.INSTANCE.getConfig().set("Loots", items);
-                    ScarletAirDrop.INSTANCE.reloadConfig();
+                    ScarletAirDrop.INSTANCE.saveConfig();
 
                     p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
 
@@ -74,7 +74,7 @@ public class MainCommand implements CommandExecutor {
                     List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
 
                     for (String item : items) {
-                        p.getInventory().addItem(BukkitSerialization.itemStackFromBase64(item));
+                        p.getInventory().addItem(ItemStackUtils.deserialize(item));
                     }
 
                     p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItems ottenuti!"));
@@ -95,7 +95,7 @@ public class MainCommand implements CommandExecutor {
                     List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
                     locations.add(locationToString(loc));
                     ScarletAirDrop.INSTANCE.getConfig().set("Locations", locations);
-                    ScarletAirDrop.INSTANCE.reloadConfig();
+                    ScarletAirDrop.INSTANCE.saveConfig();
 
                     p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
 
