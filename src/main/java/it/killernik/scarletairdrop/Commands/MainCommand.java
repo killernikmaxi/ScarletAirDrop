@@ -56,7 +56,7 @@ public class MainCommand implements CommandExecutor {
                     List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
                     items.add(BukkitSerialization.itemStackToBase64(item));
                     ScarletAirDrop.INSTANCE.getConfig().set("Loots", items);
-                    ScarletAirDrop.INSTANCE.saveDefaultConfig();
+                    ScarletAirDrop.INSTANCE.reloadConfig();
 
                     p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
 
@@ -95,7 +95,7 @@ public class MainCommand implements CommandExecutor {
                     List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
                     locations.add(locationToString(loc));
                     ScarletAirDrop.INSTANCE.getConfig().set("Locations", locations);
-                    ScarletAirDrop.INSTANCE.saveDefaultConfig();
+                    ScarletAirDrop.INSTANCE.reloadConfig();
 
                     p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
 
