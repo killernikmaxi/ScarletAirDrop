@@ -26,7 +26,7 @@ public final class ScarletAirDrop extends JavaPlugin {
         airDropSpawnTask.StartTask();
         WorkloadThread workloadThread = new WorkloadThread();
         Bukkit.getScheduler().runTaskTimer(this, workloadThread, 0, 1);
-        Bukkit.getLogger().info("[ScarletAirDrop] abilitato con successo in " + (System.currentTimeMillis() - startTime) + "ms!");
+        Bukkit.getLogger().info("[ScarletAirDrop] Abilitato con successo in " + (System.currentTimeMillis() - startTime) + "ms!");
 
     }
 
