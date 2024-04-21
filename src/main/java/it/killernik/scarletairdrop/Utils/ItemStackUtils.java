@@ -28,18 +28,18 @@ public class ItemStackUtils {
         parts[3] = i.getItemMeta().getDisplayName();
         parts[4] = String.valueOf(i.getData().getData());
         parts[5] = getEnchants(i);
-        return StringUtils.join((Object[])parts, ";");
+        return StringUtils.join((Object[]) parts, ";");
     }
 
     public static ItemStack deserialize(String p) {
         String[] a = p.split(";");
         ItemStack i = new ItemStack(Material.getMaterial(a[0]), Integer.parseInt(a[1]));
-        i.setDurability((short)Integer.parseInt(a[2]));
+        i.setDurability((short) Integer.parseInt(a[2]));
         ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(a[3]);
         i.setItemMeta(meta);
         MaterialData data = i.getData();
-        data.setData((byte)Integer.parseInt(a[4]));
+        data.setData((byte) Integer.parseInt(a[4]));
         i.setData(data);
         if (a.length > 5) {
             String[] parts = a[5].split(",");
@@ -55,7 +55,8 @@ public class ItemStackUtils {
                     int f = 0;
                     try {
                         f = Integer.parseInt(amplifier);
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                    }
                     i.addEnchantment(type, f);
                 }
                 b++;
