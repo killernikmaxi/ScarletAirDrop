@@ -9,16 +9,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.util.List;
-import java.util.Random;
 
 public class SpawnAirdropWorkload implements Workload {
     @Override
     public void compute() {
         AirDropManager airDropManager = ScarletAirDrop.INSTANCE.airDropManager;
         airDropManager.eventRunning = true;
-
-        int maxADAmount = airDropManager.getMaxADAmount();
-        int minADAmount = airDropManager.getMinADAmount();
         int airdropSpawned = 0;
 
         List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
@@ -31,16 +27,11 @@ public class SpawnAirdropWorkload implements Workload {
             return;
         }
 
-        if (maxADAmount > airDropManager.locList.size()) {
-            maxADAmount = airDropManager.locList.size();
-        }
 
-        if (minADAmount > airDropManager.locList.size()) {
-            minADAmount = airDropManager.locList.size();
+        int AirDropAmount = airDropManager.getAirdropAmount();
+        if (AirDropAmount > airDropManager.locList.size()) {
+            AirDropAmount = airDropManager.locList.size();
         }
-
-        Random rand = new Random();
-        int AirDropAmount = rand.nextInt(maxADAmount - minADAmount + 1) + minADAmount;
 
         for (Location loc : airDropManager.locList) {
             airDropManager.spawnAirDrop(loc);

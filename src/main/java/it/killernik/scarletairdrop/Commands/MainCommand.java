@@ -40,90 +40,70 @@ public class MainCommand implements CommandExecutor {
             commandSender.sendMessage(MessageUtil.message("&4Altro"));
             commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &breload"));
             commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bsetcountdown [int]"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bspawnairdrop"));
             commandSender.sendMessage(MessageUtil.message("&7&m--- --*---------------------------*-- ---"));
             return true;
         }
 
         if (args.length == 1) {
 
-            if (args[0].equalsIgnoreCase("additem")) {
-                if (commandSender instanceof Player) {
-                    Player p = (Player) commandSender;
-                    ItemStack item = p.getInventory().getItemInHand();
-                    if (item.getType() == Material.AIR || item.getType() == null) return true;
-
-                    List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
-                    items.add(ItemStackUtils.serialize(item));
-                    ScarletAirDrop.INSTANCE.getConfig().set("Loots", items);
-                    ScarletAirDrop.INSTANCE.saveConfig();
-
-                    p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
-
-
-                    return true;
-                } else {
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
-                }
-            }
-
-            if (args[0].equalsIgnoreCase("getitems")) {
-                if (commandSender instanceof Player) {
-                    Player p = (Player) commandSender;
-
-                    List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
-
-                    for (String item : items) {
-                        p.getInventory().addItem(ItemStackUtils.deserialize(item));
+            switch (args[0]) {
+                case "additem":
+                    if (commandSender instanceof Player) {
+                        Player p = (Player) commandSender;
+                        ItemStack item = p.getInventory().getItemInHand();
+                        if (item.getType() == Material.AIR || item.getType() == null) return true;
+                        List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
+                        items.add(ItemStackUtils.serialize(item));
+                        ScarletAirDrop.INSTANCE.getConfig().set("Loots", items);
+                        ScarletAirDrop.INSTANCE.saveConfig();
+                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
+                    } else {
+                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
                     }
+                    break;
+                case "getitems":
+                    if (commandSender instanceof Player) {
+                        Player p = (Player) commandSender;
 
-                    p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItems ottenuti!"));
+                        List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
 
-                    return true;
-                } else {
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
-                }
-            }
+                        for (String item : items) {
+                            p.getInventory().addItem(ItemStackUtils.deserialize(item));
+                        }
 
-            if (args[0].equalsIgnoreCase("addlocation")) {
-                if (commandSender instanceof Player) {
+                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItems ottenuti!"));
 
-                    Player p = (Player) commandSender;
-                    Location loc = p.getLocation();
-                    loc = loc.getBlock().getLocation().add(0.5, 0, 0.5);
+                        return true;
+                    } else {
+                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
+                    }
+                    break;
+                case "addlocation":
+                    if (commandSender instanceof Player) {
 
-                    List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
-                    locations.add(locationToString(loc));
-                    ScarletAirDrop.INSTANCE.getConfig().set("Locations", locations);
-                    ScarletAirDrop.INSTANCE.saveConfig();
+                        Player p = (Player) commandSender;
+                        Location loc = p.getLocation();
+                        loc = loc.getBlock().getLocation().add(0.5, 0, 0.5);
 
-                    p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
+                        List<String> locations = ScarletAirDrop.INSTANCE.getConfig().getStringList("Locations");
+                        locations.add(locationToString(loc));
+                        ScarletAirDrop.INSTANCE.getConfig().set("Locations", locations);
+                        ScarletAirDrop.INSTANCE.saveConfig();
 
-                    return true;
-                } else {
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
-                }
-            }
+                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
 
-            if (args[0].equalsIgnoreCase("spawnairdrop")) {
-                if (commandSender instanceof Player) {
-                    Player p = (Player) commandSender;
-                    Location loc = p.getLocation();
-                    loc = loc.getBlock().getLocation().add(0.5, 0, 0.5);
-                    ScarletAirDrop.INSTANCE.airDropManager.spawnAirDrop(loc);
-                    p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aAirdrop spawnato!"));
-                    return true;
-                }
-            }
-
-            if (args[0].equalsIgnoreCase("reload")) {
-                ScarletAirDrop.INSTANCE.reloadConfig();
-                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
-                return true;
-
-            } else {
-                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
-                return true;
+                        return true;
+                    } else {
+                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
+                    }
+                    break;
+                case "reload":
+                    ScarletAirDrop.INSTANCE.reloadConfig();
+                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
+                    break;
+                default:
+                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
+                    break;
             }
 
         } else if (args.length == 2) {
@@ -141,6 +121,7 @@ public class MainCommand implements CommandExecutor {
             commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
             return true;
         }
+        return true;
     }
 
 }

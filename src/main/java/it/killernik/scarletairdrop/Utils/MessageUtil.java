@@ -21,7 +21,7 @@ public class MessageUtil {
 
         if (minutes > 0) formattedTime.append(minutes).append(minutes == 1 ? " minuto e " : " minuti e ");
 
-        formattedTime.append(seconds).append(seconds == 1 ? " secondo" : " secondi");
+        if (seconds > 0) formattedTime.append(seconds).append(seconds == 1 ? " secondo" : " secondi");
 
         return formattedTime.toString();
     }

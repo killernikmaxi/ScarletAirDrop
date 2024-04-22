@@ -3,13 +3,16 @@ package it.killernik.scarletairdrop.Manager;
 import it.killernik.scarletairdrop.ScarletAirDrop;
 import it.killernik.scarletairdrop.Utils.HologramsUtils;
 import it.killernik.scarletairdrop.Utils.ItemStackUtils;
+import it.killernik.scarletairdrop.Utils.WebHookUtils;
 import it.killernik.scarletairdrop.WorkLoad.Workload;
 import it.killernik.scarletairdrop.WorkLoad.impl.SpawnAirdropWorkload;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
+import org.bukkit.configuration.file.FileConfiguration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +23,12 @@ public class AirDropManager {
     public List<Location> locList = new ArrayList<>();
     public HashMap<Chest, HologramsUtils> holoMap = new HashMap<>();
     public boolean eventRunning = false;
+    FileConfiguration config = ScarletAirDrop.INSTANCE.getConfig();
 
     public void startEvent() {
         Workload spawnAirdropWorkload = new SpawnAirdropWorkload();
         spawnAirdropWorkload.compute();
+        sendStartedWebHook();
     }
 
     public void spawnAirDrop(Location loc) {
@@ -54,8 +59,7 @@ public class AirDropManager {
 
         int maxLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.max-item");
         int minLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.min-item");
-        Random rand = new Random();
-        int lootAmount = rand.nextInt(maxLootAmount - minLootAmount + 1) + minLootAmount;
+        int lootAmount = new Random().nextInt(maxLootAmount - minLootAmount + 1) + minLootAmount;
         int lootSpawned = 0;
 
         List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
@@ -71,64 +75,36 @@ public class AirDropManager {
 
     }
 
-    public int getMaxADAmount() {
-
-        int playersOnline = Bukkit.getOnlinePlayers().size();
-        int maxADAmount;
-
-        if (playersOnline >= 7 && playersOnline < 15) {
-            maxADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.7.max-airdrop");
-            return maxADAmount;
-        }
-
-        if (playersOnline <= 15) {
-            maxADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.15.max-airdrop");
-            return maxADAmount;
-        }
-
-        if (playersOnline <= 35) {
-            maxADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.35.max-airdrop");
-            return maxADAmount;
-        }
-
-        if (playersOnline <= 50) {
-            maxADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.50.max-airdrop");
-            return maxADAmount;
-        }
-
-        maxADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.max-on>50");
-        return maxADAmount;
-
+    public int getAirdropAmount() {
+        int playersOn = Bukkit.getServer().getOnlinePlayers().size();
+        double min = config.getDouble("Settings.AirDrop.min-percentage") * playersOn;
+        double max = config.getDouble("Settings.AirDrop.max-percentage") * playersOn;
+        return (int) (min + (max - min) * new Random().nextDouble());
     }
 
-    public int getMinADAmount() {
+    private void sendStartedWebHook() {
+        if (!config.getBoolean("Webhook.enabled")) return;
 
-        int playersOnline = Bukkit.getOnlinePlayers().size();
-        int minADAmount;
+        String webhookUrl = config.getString("Webhook.webhook-url");
+        String username = config.getString("Webhook.username");
+        String title = config.getString("Webhook.title");
+        String desc = config.getString("Webhook.description");
+        String avatarUrl = config.getString("Webhook.avatar-url");
+        String thumbnailUrl = config.getString("Webhook.thumbnail-url");
 
-        if (playersOnline >= 7 && playersOnline < 15) {
-            minADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.7.min-airdrop");
-            return minADAmount;
+        WebHookUtils webhook = new WebHookUtils(webhookUrl);
+
+        webhook.setUsername(username);
+        webhook.setAvatarUrl(avatarUrl);
+
+        webhook.addEmbed(new WebHookUtils.EmbedObject()
+                .setTitle(title)
+                .setDescription(desc)
+                .setThumbnail(thumbnailUrl));
+        try {
+            webhook.execute();
+        } catch (IOException e) {
+            e.getStackTrace();
         }
-
-        if (playersOnline <= 15) {
-            minADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.15.min-airdrop");
-            return minADAmount;
-        }
-
-        if (playersOnline <= 35) {
-            minADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.35.min-airdrop");
-            return minADAmount;
-        }
-
-        if (playersOnline <= 50) {
-            minADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.50.min-airdrop");
-            return minADAmount;
-        }
-
-        minADAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.dynamic-airdrop-amount.min-on>50");
-        return minADAmount;
-
     }
-
 }
