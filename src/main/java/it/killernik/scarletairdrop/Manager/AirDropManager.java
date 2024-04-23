@@ -75,11 +75,11 @@ public class AirDropManager {
 
     }
 
-    public int getAirdropAmount() {
+    public double getAirdropAmount() {
         int playersOn = Bukkit.getServer().getOnlinePlayers().size();
         double min = config.getDouble("Settings.AirDrop.min-percentage") * playersOn;
         double max = config.getDouble("Settings.AirDrop.max-percentage") * playersOn;
-        return (int) (min + (max - min) * new Random().nextDouble());
+        return (min + (max - min) * new Random().nextDouble());
     }
 
     private void sendStartedWebHook() {

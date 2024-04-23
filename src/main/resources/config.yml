@@ -38,6 +38,8 @@ Settings:
     min-percentage: 0.75
     max-percentage: 1.25
 
+    min-online: 7
+
   Loots:
 
     # Numero minimo di item

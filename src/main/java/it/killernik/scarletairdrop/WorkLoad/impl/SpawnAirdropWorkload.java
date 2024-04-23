@@ -28,7 +28,7 @@ public class SpawnAirdropWorkload implements Workload {
         }
 
 
-        int AirDropAmount = airDropManager.getAirdropAmount();
+        double AirDropAmount = airDropManager.getAirdropAmount();
         if (AirDropAmount > airDropManager.locList.size()) {
             AirDropAmount = airDropManager.locList.size();
         }
@@ -36,7 +36,7 @@ public class SpawnAirdropWorkload implements Workload {
         for (Location loc : airDropManager.locList) {
             airDropManager.spawnAirDrop(loc);
             airdropSpawned++;
-            if (airdropSpawned == AirDropAmount) {
+            if (airdropSpawned >= AirDropAmount) {
                 break;
             }
         }
