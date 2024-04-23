@@ -45,6 +45,7 @@ public final class ScarletAirDrop extends JavaPlugin {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new it.killernik.scarletairdrop.Listener.InventoryCloseEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new it.killernik.scarletairdrop.Listener.PlayerArmorstandManipulateEvent(), this);
     }
 
     private void registerCommands() {

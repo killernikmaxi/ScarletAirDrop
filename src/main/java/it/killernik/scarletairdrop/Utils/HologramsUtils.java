@@ -37,6 +37,7 @@ public class HologramsUtils {
             entity.setVisible(false);
             entity.setCustomNameVisible(true);
             entity.setSmall(true);
+            entity.setCanPickupItems(false);
             entity.setCustomName(MessageUtil.message((String) this.lines.get(i)));
             this.entities.add(entity);
         }
