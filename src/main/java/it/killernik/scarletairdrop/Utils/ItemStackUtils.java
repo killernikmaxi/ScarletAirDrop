@@ -57,7 +57,7 @@ public class ItemStackUtils {
                         f = Integer.parseInt(amplifier);
                     } catch (Exception ex) {
                     }
-                    i.addEnchantment(type, f);
+                    i.addUnsafeEnchantment(type, f);
                 }
                 b++;
             }

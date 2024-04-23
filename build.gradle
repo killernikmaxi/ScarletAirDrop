@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.1"
 }
 
 group = 'it.killernik'
@@ -23,6 +24,7 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT"
     compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly files("${project.projectDir}/lib/DragonLib-1.0.jar")
 }
 
 def targetJavaVersion = 8
@@ -50,4 +52,8 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+shadowJar {
+    relocate("it.killernik.dragonlib", "it.killernik.scarletairdrop.lib")
 }
