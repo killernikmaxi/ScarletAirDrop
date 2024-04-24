@@ -8,6 +8,7 @@ import it.killernik.scarletairdrop.WorkLoad.Workload;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SpawnAirdropWorkload implements Workload {
@@ -33,6 +34,7 @@ public class SpawnAirdropWorkload implements Workload {
             AirDropAmount = airDropManager.locList.size();
         }
 
+        Collections.shuffle(airDropManager.locList);
         for (Location loc : airDropManager.locList) {
             airDropManager.spawnAirDrop(loc);
             airdropSpawned++;
