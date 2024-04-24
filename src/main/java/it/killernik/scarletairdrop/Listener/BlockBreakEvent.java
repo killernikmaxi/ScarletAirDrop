@@ -2,8 +2,6 @@ package it.killernik.scarletairdrop.Listener;
 
 import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.ScarletAirDrop;
-import it.killernik.scarletairdrop.Utils.HologramsUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.event.EventHandler;
