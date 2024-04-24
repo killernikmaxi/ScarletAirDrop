@@ -89,3 +89,6 @@ Loots:
 # Impostale con /ad addlocation
 # Oppure rimuovile manualmente mediante il config
 Locations:
+
+# Non toccare niente
+Chests:

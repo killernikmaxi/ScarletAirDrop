@@ -6,8 +6,13 @@ import it.killernik.scarletairdrop.Tasks.AirDropSpawnTask;
 import it.killernik.scarletairdrop.WorkLoad.Workload;
 import it.killernik.scarletairdrop.WorkLoad.WorkloadThread;
 import it.killernik.scarletairdrop.WorkLoad.impl.DespawnAirdropWorkload;
+import it.killernik.scarletairdrop.WorkLoad.impl.SpawnAirdropWorkload;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Chest;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ScarletAirDrop extends JavaPlugin {
     public static ScarletAirDrop INSTANCE;
@@ -27,15 +32,12 @@ public final class ScarletAirDrop extends JavaPlugin {
         WorkloadThread workloadThread = new WorkloadThread();
         Bukkit.getScheduler().runTaskTimer(this, workloadThread, 0, 1);
         Bukkit.getLogger().info("[ScarletAirDrop] Abilitato con successo in " + (System.currentTimeMillis() - startTime) + "ms!");
-
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("[ScarletAirDrop] Disabilitato con successo!");
         if (!airDropManager.eventRunning) return;
-        Workload despawnAirdropWorkload = new DespawnAirdropWorkload();
-        despawnAirdropWorkload.compute();
+        Bukkit.getLogger().info("[ScarletAirDrop] Disabilitato con successo!");
     }
 
     private void registerManagers() {
