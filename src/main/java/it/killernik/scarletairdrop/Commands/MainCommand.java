@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,6 +42,7 @@ public class MainCommand implements CommandExecutor {
             commandSender.sendMessage(MessageUtil.message("&4Altro"));
             commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &breload"));
             commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bsetcountdown [int]"));
+            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bkillarmorstand"));
             commandSender.sendMessage(MessageUtil.message("&7&m--- --*---------------------------*-- ---"));
             return true;
         }
@@ -100,6 +103,16 @@ public class MainCommand implements CommandExecutor {
                 case "reload":
                     ScarletAirDrop.INSTANCE.reloadConfig();
                     commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
+                    break;
+                case "killarmorstand":
+                    if (commandSender instanceof Player) {
+                        for (Entity entity : ((Player) commandSender).getNearbyEntities(5, 5, 5)) {
+                            if (entity instanceof ArmorStand) {
+                                ArmorStand armorStand = (ArmorStand) entity;
+                                armorStand.remove();
+                            }
+                        }
+                    }
                     break;
                 default:
                     commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
