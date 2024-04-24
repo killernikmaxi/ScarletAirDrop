@@ -4,6 +4,7 @@ import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.ScarletAirDrop;
 import org.bukkit.block.Chest;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 public class InventoryCloseEvent implements Listener {
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onInventoryClose(org.bukkit.event.inventory.InventoryCloseEvent event) {
         Inventory inv = event.getInventory();
 

@@ -44,14 +44,13 @@ public class AirDropManager {
     public void removeAirdrop(Chest chest) {
         Bukkit.getScheduler().runTask(ScarletAirDrop.INSTANCE, () -> {
             chestList.remove(chest);
+            locList.remove(chest.getLocation());
             HologramsUtils holo = holoMap.get(chest);
             holo.destroy();
             if (chest.getBlock().getType() == Material.CHEST) {
                 chest.getInventory().clear();
                 chest.getBlock().setType(Material.AIR);
             }
-            chest.getBlock().setType(Material.AIR);
-            locList.remove(chest.getLocation());
         });
     }
 
@@ -61,7 +60,7 @@ public class AirDropManager {
         Collections.shuffle(items);
         int maxLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.max-item");
         int minLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.min-item");
-        int lootAmount = Math.min(new Random().nextInt(maxLootAmount - minLootAmount + 1) + minLootAmount, items.size());
+        int lootAmount = minLootAmount + (maxLootAmount - minLootAmount) * new Random().nextInt();
         int lootSpawned = 0;
 
         for (String item : items) {
@@ -70,8 +69,9 @@ public class AirDropManager {
             int slot = (int) (Math.random() * slotRange);
 
             chest.getInventory().setItem(slot, ItemStackUtils.deserialize(item));
+            items.remove(item);
             lootSpawned++;
-            if (lootSpawned == lootAmount) break;
+            if (lootSpawned >= lootAmount) break;
         }
 
     }
