@@ -13,10 +13,7 @@ import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class AirDropManager {
     public static List<Chest> chestList = new ArrayList<>();
@@ -47,22 +44,26 @@ public class AirDropManager {
     public void removeAirdrop(Chest chest) {
         Bukkit.getScheduler().runTask(ScarletAirDrop.INSTANCE, () -> {
             chestList.remove(chest);
-            chest.getInventory().clear();
-            chest.getBlock().setType(Material.AIR);
             HologramsUtils holo = holoMap.get(chest);
             holo.destroy();
+            if (chest.getBlock().getType() == Material.CHEST) {
+                chest.getInventory().clear();
+                chest.getBlock().setType(Material.AIR);
+            }
+            chest.getBlock().setType(Material.AIR);
             locList.remove(chest.getLocation());
         });
     }
 
     public void setAirdropLoot(Chest chest) {
 
+        List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
+        Collections.shuffle(items);
         int maxLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.max-item");
         int minLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.min-item");
-        int lootAmount = new Random().nextInt(maxLootAmount - minLootAmount + 1) + minLootAmount;
+        int lootAmount = Math.min(new Random().nextInt(maxLootAmount - minLootAmount + 1) + minLootAmount, items.size());
         int lootSpawned = 0;
 
-        List<String> items = ScarletAirDrop.INSTANCE.getConfig().getStringList("Loots");
         for (String item : items) {
 
             int slotRange = 27;
