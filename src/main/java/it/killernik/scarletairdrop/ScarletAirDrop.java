@@ -3,16 +3,9 @@ package it.killernik.scarletairdrop;
 import it.killernik.scarletairdrop.Commands.MainCommand;
 import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.Tasks.AirDropSpawnTask;
-import it.killernik.scarletairdrop.WorkLoad.Workload;
 import it.killernik.scarletairdrop.WorkLoad.WorkloadThread;
-import it.killernik.scarletairdrop.WorkLoad.impl.DespawnAirdropWorkload;
-import it.killernik.scarletairdrop.WorkLoad.impl.SpawnAirdropWorkload;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Chest;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class ScarletAirDrop extends JavaPlugin {
     public static ScarletAirDrop INSTANCE;
