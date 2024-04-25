@@ -4,7 +4,6 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class HologramsUtils {
             entity.setCustomNameVisible(true);
             entity.setSmall(true);
             entity.setCanPickupItems(false);
-            entity.setCustomName(MessageUtil.message((String) this.lines.get(i)));
+            entity.setCustomName(StringUtil.message((String) this.lines.get(i)));
             this.entities.add(entity);
         }
         this.spawned = true;

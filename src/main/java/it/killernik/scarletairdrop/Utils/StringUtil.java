@@ -2,7 +2,7 @@ package it.killernik.scarletairdrop.Utils;
 
 import org.bukkit.ChatColor;
 
-public class MessageUtil {
+public class StringUtil {
 
     public static String message(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);

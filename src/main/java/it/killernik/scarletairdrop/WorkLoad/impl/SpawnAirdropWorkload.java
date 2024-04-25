@@ -3,7 +3,7 @@ package it.killernik.scarletairdrop.WorkLoad.impl;
 import it.killernik.scarletairdrop.Manager.AirDropManager;
 import it.killernik.scarletairdrop.ScarletAirDrop;
 import it.killernik.scarletairdrop.Utils.LocationUtils;
-import it.killernik.scarletairdrop.Utils.MessageUtil;
+import it.killernik.scarletairdrop.Utils.StringUtil;
 import it.killernik.scarletairdrop.WorkLoad.Workload;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -43,7 +43,7 @@ public class SpawnAirdropWorkload implements Workload {
             }
         }
 
-        Bukkit.broadcastMessage(MessageUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.started").replaceAll("%airdrop%", String.valueOf(airdropSpawned))));
+        Bukkit.broadcastMessage(StringUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.started").replaceAll("%airdrop%", String.valueOf(airdropSpawned))));
         int airdropExpire = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.expire");
 
         Bukkit.getScheduler().runTaskLater(ScarletAirDrop.INSTANCE, () -> {

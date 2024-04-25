@@ -1,7 +1,7 @@
 package it.killernik.scarletairdrop.Tasks;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
-import it.killernik.scarletairdrop.Utils.MessageUtil;
+import it.killernik.scarletairdrop.Utils.StringUtil;
 import it.killernik.scarletairdrop.WorkLoad.Workload;
 import it.killernik.scarletairdrop.WorkLoad.impl.DespawnAirdropWorkload;
 import org.bukkit.Bukkit;
@@ -30,12 +30,12 @@ public class AirDropSpawnTask {
 
                 List<Integer> secondToBroadcast = ScarletAirDrop.INSTANCE.getConfig().getIntegerList("Settings.cooldown-message");
                 if (secondToBroadcast.contains(secondsUntilEvent)) {
-                    Bukkit.broadcastMessage(MessageUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.starting").replaceAll("%cooldown%", MessageUtil.formatTime(secondsUntilEvent))));
+                    Bukkit.broadcastMessage(StringUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.starting").replaceAll("%cooldown%", StringUtil.formatTime(secondsUntilEvent))));
                 }
 
                 if (secondsUntilEvent <= 0) {
                     if (Bukkit.getOnlinePlayers().size() < ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.min-online")) {
-                        Bukkit.broadcastMessage(MessageUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.too-low-players")));
+                        Bukkit.broadcastMessage(StringUtil.message(ScarletAirDrop.INSTANCE.getConfig().getString("Message.too-low-players")));
                         secondsUntilEvent = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.AirDrop.cooldown");
                         return;
                     }

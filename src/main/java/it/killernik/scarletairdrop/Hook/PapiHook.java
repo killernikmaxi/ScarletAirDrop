@@ -1,7 +1,7 @@
 package it.killernik.scarletairdrop.Hook;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
-import it.killernik.scarletairdrop.Utils.MessageUtil;
+import it.killernik.scarletairdrop.Utils.StringUtil;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 
@@ -22,7 +22,7 @@ public class PapiHook extends PlaceholderExpansion {
 
     public String onRequest(OfflinePlayer player, String params) {
         if (Objects.equals(params, "countdown")) {
-            return MessageUtil.formatTime(ScarletAirDrop.INSTANCE.airDropSpawnTask.getTime());
+            return StringUtil.formatTime(ScarletAirDrop.INSTANCE.airDropSpawnTask.getTime());
         }
         return null;
     }

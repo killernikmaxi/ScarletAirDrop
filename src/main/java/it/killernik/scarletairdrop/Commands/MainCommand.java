@@ -2,7 +2,7 @@ package it.killernik.scarletairdrop.Commands;
 
 import it.killernik.scarletairdrop.ScarletAirDrop;
 import it.killernik.scarletairdrop.Utils.ItemStackUtils;
-import it.killernik.scarletairdrop.Utils.MessageUtil;
+import it.killernik.scarletairdrop.Utils.StringUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -22,28 +22,28 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
         if (!commandSender.hasPermission("ad.admin")) {
-            commandSender.sendMessage(MessageUtil.message("&cScarletAirDrop by MRkillernik"));
-            commandSender.sendMessage(MessageUtil.message("&cDiscord: @ mrkillernik"));
+            commandSender.sendMessage(StringUtil.message("&cScarletAirDrop by MRkillernik"));
+            commandSender.sendMessage(StringUtil.message("&cDiscord: @ mrkillernik"));
             return true;
         }
 
         if (args.length == 0) {
-            commandSender.sendMessage(MessageUtil.message("&7&m--- --*---------------------------*-- ---"));
-            commandSender.sendMessage(MessageUtil.message("&4&lSCARLET AIRDROP - HELP"));
-            commandSender.sendMessage(MessageUtil.message("&7&oAlias: /ad, /airdrop"));
+            commandSender.sendMessage(StringUtil.message("&7&m--- --*---------------------------*-- ---"));
+            commandSender.sendMessage(StringUtil.message("&4&lSCARLET AIRDROP - HELP"));
+            commandSender.sendMessage(StringUtil.message("&7&oAlias: /ad, /airdrop"));
             commandSender.sendMessage("");
-            commandSender.sendMessage(MessageUtil.message("&4Item"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &badditem"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bgetitems"));
+            commandSender.sendMessage(StringUtil.message("&4Item"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &badditem"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &bgetitems"));
             commandSender.sendMessage("");
-            commandSender.sendMessage(MessageUtil.message("&4Location"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &baddlocation"));
+            commandSender.sendMessage(StringUtil.message("&4Location"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &baddlocation"));
             commandSender.sendMessage("");
-            commandSender.sendMessage(MessageUtil.message("&4Altro"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &breload"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bsetcountdown [int]"));
-            commandSender.sendMessage(MessageUtil.message("&c* &7/airdrop &bkillarmorstand"));
-            commandSender.sendMessage(MessageUtil.message("&7&m--- --*---------------------------*-- ---"));
+            commandSender.sendMessage(StringUtil.message("&4Altro"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &breload"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &bsetcountdown [int]"));
+            commandSender.sendMessage(StringUtil.message("&c* &7/airdrop &bkillarmorstand"));
+            commandSender.sendMessage(StringUtil.message("&7&m--- --*---------------------------*-- ---"));
             return true;
         }
 
@@ -59,9 +59,9 @@ public class MainCommand implements CommandExecutor {
                         items.add(ItemStackUtils.serialize(item));
                         ScarletAirDrop.INSTANCE.getConfig().set("Loots", items);
                         ScarletAirDrop.INSTANCE.saveConfig();
-                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
+                        p.sendMessage(StringUtil.message("&4&lAIRDROP &8// &aItem aggiunto!"));
                     } else {
-                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
+                        commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
                     }
                     break;
                 case "getitems":
@@ -74,11 +74,11 @@ public class MainCommand implements CommandExecutor {
                             p.getInventory().addItem(ItemStackUtils.deserialize(item));
                         }
 
-                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aItems ottenuti!"));
+                        p.sendMessage(StringUtil.message("&4&lAIRDROP &8// &aItems ottenuti!"));
 
                         return true;
                     } else {
-                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
+                        commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
                     }
                     break;
                 case "addlocation":
@@ -93,16 +93,16 @@ public class MainCommand implements CommandExecutor {
                         ScarletAirDrop.INSTANCE.getConfig().set("Locations", locations);
                         ScarletAirDrop.INSTANCE.saveConfig();
 
-                        p.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
+                        p.sendMessage(StringUtil.message("&4&lAIRDROP &8// &aLocation aggiunta!"));
 
                         return true;
                     } else {
-                        commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
+                        commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSolo i giocatori possono eseguire questo comando!"));
                     }
                     break;
                 case "reload":
                     ScarletAirDrop.INSTANCE.reloadConfig();
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
+                    commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &aConfig ricaricato!"));
                     break;
                 case "killarmorstand":
                     if (commandSender instanceof Player) {
@@ -115,7 +115,7 @@ public class MainCommand implements CommandExecutor {
                     }
                     break;
                 default:
-                    commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
+                    commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
                     break;
             }
 
@@ -123,15 +123,15 @@ public class MainCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("setcountdown")) {
                 ScarletAirDrop.INSTANCE.airDropSpawnTask.setTime(Integer.parseInt(args[1]));
-                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &aCountdown impostato con successo a " + args[1]));
+                commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &aCountdown impostato con successo a " + args[1]));
                 return true;
             } else {
-                commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
+                commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
                 return true;
             }
 
         } else {
-            commandSender.sendMessage(MessageUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
+            commandSender.sendMessage(StringUtil.message("&4&lAIRDROP &8// &cSintassi errata"));
             return true;
         }
         return true;
