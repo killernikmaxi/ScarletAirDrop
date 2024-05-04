@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.util.*;
@@ -18,7 +19,7 @@ import java.util.*;
 public class AirDropManager {
     public static List<Chest> chestList = new ArrayList<>();
     public List<Location> locList = new ArrayList<>();
-    public HashMap<Chest, HologramsUtils> holoMap = new HashMap<>();
+    public Map<Chest, HologramsUtils> holoMap = new HashMap<>();
     public boolean eventRunning = false;
     FileConfiguration config = ScarletAirDrop.INSTANCE.getConfig();
 
@@ -46,7 +47,7 @@ public class AirDropManager {
             chestList.remove(chest);
             locList.remove(chest.getLocation());
             HologramsUtils holo = holoMap.get(chest);
-            holo.destroy();
+            if (holo != null) holo.destroy();
             if (chest.getBlock().getType() == Material.CHEST) {
                 chest.getInventory().clear();
                 chest.getBlock().setType(Material.AIR);
@@ -60,16 +61,16 @@ public class AirDropManager {
         Collections.shuffle(items);
         int maxLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.max-item");
         int minLootAmount = ScarletAirDrop.INSTANCE.getConfig().getInt("Settings.Loots.min-item");
-        int lootAmount = minLootAmount + (maxLootAmount - minLootAmount) * new Random().nextInt();
+        int lootAmount = new Random().nextInt(maxLootAmount + 1 - minLootAmount) + minLootAmount;
         int lootSpawned = 0;
 
         for (String item : items) {
 
             int slotRange = 27;
             int slot = (int) (Math.random() * slotRange);
-
-            chest.getInventory().setItem(slot, ItemStackUtils.deserialize(item));
-            items.remove(item);
+            ItemStack itemDeserialized = ItemStackUtils.deserialize(item);
+            if (chest.getInventory().contains(itemDeserialized)) return;
+            chest.getInventory().setItem(slot, itemDeserialized);
             lootSpawned++;
             if (lootSpawned >= lootAmount) break;
         }
