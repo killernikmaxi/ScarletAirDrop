@@ -7,7 +7,7 @@ public class WorkloadThread implements Runnable {
     private static final int MAX_NANOS_PER_TICK = MAX_MS_PER_TICK * 1000000;
     private final ArrayDeque<Workload> workloads = new ArrayDeque<>();
 
-    public void addWorkload(Workload workload) { // Here we pass the Workload, the previously created interface, as a parameter, so as to be able to pass a [Lambda expression](https://www.html.it/pag/68388/introduction-alle-espressioni-lambda/) as a parameter
+    public void addWorkload(Workload workload) {
         this.workloads.add(workload);
     }
 
